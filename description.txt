@@ -1,0 +1,20 @@
+https://youtu.be/ZsPCYQRK4aY
+
+npx create-next-app@latest
+
+npx shadcn@latest init
+
+npx shadcn@latest add button
+
+npm i --save-dev prettier
+
+npm install -D tailwindcss@3
+npx tailwindcss init
+
+
+
+--------------------------------------------
+npm run dev
+
+--------------------------------------------
+00 : 11 : 55
