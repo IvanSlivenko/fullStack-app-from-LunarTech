@@ -11,10 +11,20 @@ npm i --save-dev prettier
 npm install -D tailwindcss@3
 npx tailwindcss init
 
+# Tailwind форми
+npm install @tailwindcss/forms
+
+# Tailwind типографіка
+npm install @tailwindcss/typography
+
+# Tailwind animate
+npm install tailwindcss-animate
+
+
 
 
 --------------------------------------------
 npm run dev
 
 --------------------------------------------
-00 : 11 : 55
+00 : 30 : 25
