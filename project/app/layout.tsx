@@ -1,51 +1,45 @@
-import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
+import "../css/globals.css";
 import localFont from "next/font/local";
 import { ReactNode } from "react";
-const ibmPlexSans = localFont({
-  src: [
-    {
-      path: "/fonts/IBMPlexSans-Italic-VariableFont_wdth,wght.ttf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "/fonts/IBMPlexSans-VariableFont_wdth,wght.ttf",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-});
-
-const bebasNeue = localFont({
-  src: [
-    {
-      path: "/fonts/BebasNeue-Regular.ttf",
-      weight: "400",
-      style: "normal",
-    },
-  ],
-  variable: "--bebas-neue",
-});
-
+import type { Metadata } from "next";
+//
+// const ibmPlexSans = localFont({
+//   src: [
+//     {
+//       path: "./fonts/IBMPlexSans-VariableFont_wdth,wght.ttf",
+//       weight: "400",
+//       style: "normal",
+//     },
+//     {
+//       path: "./fonts/IBMPlexSans-Italic-VariableFont_wdth,wght.ttf",
+//       weight: "400",
+//       style: "italic",
+//     },
+//   ],
+//   variable: "--font-ibm-plex-sans",
+// });
+//
+// const bebasNeue = localFont({
+//   src: [
+//     { path: "./fonts/BebasNeue-Regular.ttf", weight: "400", style: "normal" },
+//   ],
+//   variable: "--font-bebas-neue",
+// });
+//
 export const metadata: Metadata = {
   title: "BookWise",
   description:
-    "BookWise is a book borrowing university library managment solution",
+    "BookWise is a book borrowing university library management solution",
 };
-
-const RootLayout = ({ children }: { children: ReactNode }) => {
+//
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
+      // className={`${ibmPlexSans.variable} ${bebasNeue.variable} antialiased`}
       >
         {children}
       </body>
     </html>
   );
-};
-
-export default RootLayout;
+}

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .root-container {
+        @apply flex min-h-screen flex-1 flex-col  px-5 bg-gray-700;
+    }
+}
