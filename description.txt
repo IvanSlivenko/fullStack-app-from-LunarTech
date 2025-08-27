@@ -36,6 +36,8 @@ npm install tailwindcss-animate
 
 
 react hook forms
+
+https://ui.shadcn.com/docs/components/form
 --------------------------------------------------------
 npx shadcn@latest add form
 
@@ -52,4 +54,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 23 : 40
+01 : 27 : 30
