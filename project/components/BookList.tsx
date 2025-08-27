@@ -19,9 +19,11 @@ const BookList: FC<BookListProps> = ({
   containerClassName = "",
 }) => {
   return (
+    // <section className={containerClassName}
     <section className={containerClassName}>
       <h2 className="text-white font-bebas text-4xl">{title}</h2>
-      <ul className="book-list">
+      {/* <ul className="book-list"> */}
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map((book) => (
           
            <BookCard 

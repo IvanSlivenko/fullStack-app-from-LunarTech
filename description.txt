@@ -39,6 +39,8 @@ react hook forms
 --------------------------------------------------------
 npx shadcn@latest add form
 
+npx shadcn@latest add input
+
 
 
 
@@ -50,4 +52,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 20 : 13
+01 : 23 : 40

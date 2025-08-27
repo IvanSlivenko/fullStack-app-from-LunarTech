@@ -55,20 +55,14 @@ export const BookCard = ({
           ></BookCover_2>
           <div
             className={cn("mt-4", !isLoanedBook && "xs:max-w-40 max-w-28")}
-            // style={{
-            //   background: "green",
-            // }}
           >
-            <p className="book-cover-title">{title}</p>
-            <p className="font-ibmPlexItalic  book-cover-title">{genre}</p>
+            <p className="text-white">{title}</p>
+            <p className="font-ibmPlexItalic text-white">{genre}</p>
           </div>
           {isLoanedBook && (
             <div className="mt-3 min-w-full">
               <div
                 className="book-loaned"
-                // style={{
-                //   background:"blue"
-                // }}
               >
                 <NextImage
                   src="calendar.svg"
@@ -77,7 +71,7 @@ export const BookCard = ({
                   height={18}
                   className="object-contain"
                 />
-                <p className="font-ibmPlexItalic text-calendar">
+                <p className="font-ibmPlexItalic text-yellow-600">
                   11 days left to return
                 </p>
               </div>
@@ -90,8 +84,9 @@ export const BookCard = ({
                 }}
               >
                 <Button
-                  variant="custome_4"
-                  className={isDesktop ? "book-btn-desktop font-ibmPlexItalic" : "book-btn-mobail font-ibmPlexItalic"}
+                  variant="default"
+                  // className={isDesktop ? "book-btn-desktop font-ibmPlexItalic" : "book-btn-mobail font-ibmPlexItalic"}
+                  className="bg-orange-200 text-yellow-800 md:w-[120px] w-full"
                 >
                   Download recipient
                 </Button>
