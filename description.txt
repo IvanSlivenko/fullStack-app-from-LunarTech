@@ -15,7 +15,11 @@ create input.css -> @tailwind base;
                     @tailwind components;
                     @tailwind utilities;
 
-npx tailwindcss -i css/input.css -o css/output.css --watch
+
+npx tailwindcss -i css/input.css -o css/globals.css --watch
+
+npm install -D concurrently
+
 
 
 -----------------------------------
@@ -35,5 +39,9 @@ npm install tailwindcss-animate
 --------------------------------------------
 npm run dev
 
+or
+
+npm run devt  -------------------------------- mit tailwind watch  
+
 --------------------------------------------
-00 : 55 : 51
+01 : 12 : 07

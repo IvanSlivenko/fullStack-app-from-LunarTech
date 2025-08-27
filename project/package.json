@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "devt": "concurrently \"next dev --turbopack\" \"npx tailwindcss -i css/input.css -o css/globals.css --watch\"",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"
@@ -27,6 +28,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
     "prettier": "^3.6.2",

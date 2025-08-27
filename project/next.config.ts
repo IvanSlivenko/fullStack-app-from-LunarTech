@@ -1,7 +1,30 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com", // Amazon covers
+      },
+      {
+        protocol: "https",
+        hostname: "books.google.com", // Google Books
+      },
+      {
+        protocol: "https",
+        hostname: "covers.openlibrary.org", // OpenLibrary
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos", // Random images
+      },
+      {
+        protocol: "https",
+        hostname: "via.placeholder.com", // Placeholder.com
+      },
+    ],
+  },
 };
 
 export default nextConfig;

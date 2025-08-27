@@ -23,29 +23,30 @@ const BookCover = ({
   className,
   variant = "regular",
   coverColor = "#012B48",
-  coverImage = "https://placeholder.co/400x600.png",
+  coverImage = "https://picsum.photos/200/300",
 }: Props) => {
   return (
     <div
       className={cn(
-        "relative transition-all duration-300",
+        "relative transition-all duration-300 h-auto",
         variantStyles[variant],
         className,
       )}
     >
       BOOK SIDE SVG
       <div
-        className="absolute z-10"
+        className="absolute z-10 "
         style={{
           left: "12%",
           width: "87.5%",
           height: "88%",
         }}
       >
-        <img
+        <Image
           src={coverImage}
           alt="Book cover"
-          className="rounded-sm object-fill w-full"
+          fill
+          className="object-cover"
         />
       </div>
     </div>

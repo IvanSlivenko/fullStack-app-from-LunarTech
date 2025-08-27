@@ -13,6 +13,15 @@ module.exports = {
         ibmPlexVariable: ["var(--font-ibmPlexVariable)", "sans-serif"],
       },
     },
+    screens: {
+      xs: "500px", // тепер можна писати xs:flex-col
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
   },
   plugins: [],
+
 };

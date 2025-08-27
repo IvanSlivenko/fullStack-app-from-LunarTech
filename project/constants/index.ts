@@ -48,6 +48,7 @@ export const sampleBooks = [
     cover: "https://m.media-amazon.com/images/I/81J6APjwxlL.jpg",
     video: "https://youtu.be/3K3W_Gfd-e0?list=RD3_CrabwOWaU",
     summary: "Tarzan's adventures in the jungle",
+    isLoanedBook: true,
   },
   {
     id: 2,
