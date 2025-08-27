@@ -643,6 +643,10 @@ video {
   display: inline-flex;
 }
 
+.grid {
+  display: grid;
+}
+
 .size-4 {
   width: 1rem;
   height: 1rem;
@@ -716,6 +720,12 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .flex-row {
@@ -909,6 +919,10 @@ video {
   text-transform: capitalize;
 }
 
+.leading-none {
+  line-height: 1;
+}
+
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
@@ -1009,6 +1023,14 @@ video {
   opacity: 0.5;
 }
 
+.peer:disabled ~ .peer-disabled\:cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.peer:disabled ~ .peer-disabled\:opacity-50 {
+  opacity: 0.5;
+}
+
 .has-\[\>svg\]\:px-2\.5:has(>svg) {
   padding-left: 0.625rem;
   padding-right: 0.625rem;
@@ -1022,6 +1044,14 @@ video {
 .has-\[\>svg\]\:px-4:has(>svg) {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.group[data-disabled="true"] .group-data-\[disabled\=true\]\:pointer-events-none {
+  pointer-events: none;
+}
+
+.group[data-disabled="true"] .group-data-\[disabled\=true\]\:opacity-50 {
+  opacity: 0.5;
 }
 
 @media not all and (min-width: 640px) {

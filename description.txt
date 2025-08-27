@@ -35,6 +35,12 @@ npm install tailwindcss-animate
 
 
 
+react hook forms
+--------------------------------------------------------
+npx shadcn@latest add form
+
+
+
 
 --------------------------------------------
 npm run dev
@@ -44,4 +50,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 12 : 07
+01 : 20 : 13
