@@ -47,8 +47,13 @@ const AuthForm = <T extends FieldValues>({
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold text-white">
-        {isSignIn ? "Welome back to BookWise" : "Create your library account"}
+        {isSignIn ? "Welcome back to BookWise" : "Create your library account"}
       </h1>
+      <p className="text-light-100">
+        {isSignIn
+          ? "Access the vast cillection of resources, and stay updated"
+          : "Please complete all fields and upload a valid university ID to gain access to the library"}
+      </p>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
