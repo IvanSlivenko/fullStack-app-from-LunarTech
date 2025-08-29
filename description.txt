@@ -61,6 +61,8 @@ IMAGEKIT_PRIVATE_KEY=
 
 npm install imagekitio-next
 
+npm install imagekit
+
 
 
 
@@ -72,4 +74,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 43 : 03
+01 : 52 : 47
