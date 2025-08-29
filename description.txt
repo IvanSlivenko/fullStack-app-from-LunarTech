@@ -46,7 +46,20 @@ npx shadcn@latest add input
 
 
 imagekit.io
+https://imagekit.io/dashboard/developer/api-keys
+ 
+develouper options
 
+url
+
+NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=
+NEXT_PUBLIC_IMAGEKIT_KEY=
+IMAGEKIT_PRIVATE_KEY=
+
+
+------------------------------------------------- не потрібно npm install @imagekit/next
+
+npm install imagekitio-next
 
 
 
@@ -59,4 +72,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 38 : 17
+01 : 43 : 03
