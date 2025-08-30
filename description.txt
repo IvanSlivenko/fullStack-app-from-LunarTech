@@ -63,6 +63,9 @@ npm install imagekitio-next
 
 npm install imagekit
 
+npx shadcn@latest add sonner
+
+
 
 
 
@@ -74,4 +77,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 52 : 47
+01 : 58 : 06

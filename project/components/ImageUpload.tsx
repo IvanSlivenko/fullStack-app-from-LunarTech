@@ -9,6 +9,9 @@ import ImageKit from "imagekit";
 import { ur } from "zod/v4/locales";
 import NextImage from "next/image";
 import { Button } from "./ui/button";
+import { error } from "console";
+
+import { toast } from "sonner";
 
 const {
   env: {
@@ -18,7 +21,7 @@ const {
 
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/qpi/auth/imagekit`);
+    const response = await fetch(`${config.env.apiEndpoint}/api/auth/imagekit`);
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Request failed wit status ${response.status}:
@@ -32,13 +35,30 @@ const authenticator = async () => {
   }
 };
 
-const ImageUpload = () => {
-  const ikuploadRef = useRef(null);
+const ImageUpload = ({
+  onFileChange,
+}: {
+  onFileChange: (filePath: string) => void;
+}) => {
+  const ikUploadRef = useRef(null);
   const [file, setFile] = useState<{ filePath: string } | null>(null);
 
-  const OnError = () => {};
+  const OnError = (error: any, res: any) => {
+    console.log(error);
+    toast("Image ulpoaded failed", {
+      description: `Your image could not be upload. Please try again`,
+      // variant: "destructive"
+    });
+  };
 
-  const OnSuccess = () => {};
+  const OnSuccess = (res: any) => {
+    setFile(res);
+    onFileChange(res.filePath);
+
+    toast("Image ulpoaded succefull", {
+      description: `${res.filePath} uploaded successfully`,
+    });
+  };
 
   return (
     <ImageKitProvider
@@ -48,32 +68,43 @@ const ImageUpload = () => {
     >
       <IKUpload
         className="hidden"
-        ref={ikuploadRef}
+        ref={ikUploadRef}
         onError={OnError}
         onSuccess={OnSuccess}
-        fileName="/images/excavator.jpeg"
+        // fileName="/images/excavator.jpeg"
+        fileName={`upload_${Date.now()}.jpg`}
       />
-      <Button className="w-full flex items-center gap-2 border border-gray-100 rounded-md px-3 py-2 text-white cursor-pointer hover:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+      <Button
+        className="w-full flex items-center gap-2 border border-gray-100 rounded-md px-3 py-2 text-white cursor-pointer hover:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        onClick={(e) => {
+          e.preventDefault();
+          if (ikUploadRef.current) {
+            //@ts-ignore
+            ikUploadRef.current?.click();
+          }
+        }}
+      >
         <NextImage
           src="download.svg"
-          alt="calendar"
+          alt="download"
           width={20}
           height={20}
           className="object-contain"
         />
 
         <p>Upload a File</p>
-        {file && <p className="text-white">test{file.filePath}</p>}
-        {file && (
-          <IKImage
-          alt={file.filePath}
-          path={file.filePath}
-          width={500}
-          height={500}
-
-          />
-        )}
       </Button>
+      {file && <p className="text-sm text-gray-400 mt-2">test{file.filePath}</p>}
+      {file && (
+        <div className="mt-4 flex flex-col items-center">
+          <IKImage
+            alt={file.filePath}
+            path={file.filePath}
+            width={500}
+            height={300}
+          />
+        </div>
+      )}
     </ImageKitProvider>
   );
 };

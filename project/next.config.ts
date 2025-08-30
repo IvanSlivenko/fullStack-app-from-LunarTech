@@ -23,6 +23,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "via.placeholder.com", // Placeholder.com
       },
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io", // ik.imagekit.io
+        port: ""
+      },
     ],
   },
 };
