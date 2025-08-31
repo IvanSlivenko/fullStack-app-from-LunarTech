@@ -69,6 +69,7 @@ npx shadcn@latest add sonner
 
 connection string
 psql 'postgresql://neondb_owner:npg_xtPeM1Xi7HAN@ep-orange-dream-ad0i18ze-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+DATABASE_URL=postgresql://neondb_owner:npg_xtPeM1Xi7HAN@ep-orange-dream-ad0i18ze-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 
 
 ------------------------------------------- drizle  2 : 08: 00
@@ -95,5 +96,8 @@ or
 
 npm run devt  -------------------------------- mit tailwind watch  
 
+npm run db:studio ---------------------------- запуск сервера neon
+
 --------------------------------------------
-02 : 17 : 37
+02 : 19 : 26
+
