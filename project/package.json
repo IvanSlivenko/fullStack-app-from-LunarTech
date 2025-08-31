@@ -7,7 +7,10 @@
     "devt": "concurrently \"next dev --turbopack\" \"npx tailwindcss -i css/input.css -o css/globals.css --watch\"",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "npx drizzle-kit migrate",
+    "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
