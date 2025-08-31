@@ -65,7 +65,18 @@ npm install imagekit
 
 npx shadcn@latest add sonner
 
+------------------------------------------- NEON
 
+connection string
+psql 'postgresql://neondb_owner:npg_xtPeM1Xi7HAN@ep-orange-dream-ad0i18ze-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+
+
+------------------------------------------- drizle
+
+npm i drizzle-orm pg dotenv
+npm i -D drizzle-kit tsx @types/pg
+
+npm install @neondatabase/serverless
 
 
 
@@ -77,4 +88,4 @@ or
 npm run devt  -------------------------------- mit tailwind watch  
 
 --------------------------------------------
-01 : 58 : 06
+02 : 08 : 56
