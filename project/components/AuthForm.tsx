@@ -25,6 +25,9 @@ import { Input } from "./ui/input";
 import Link from "next/link";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import ImageUpload from "./ImageUpload";
+import { toast } from "sonner";
+
+import { useRouter } from "next/router";
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
@@ -39,6 +42,7 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+  const router = useRouter();
   const isSignIn = type === "SIGN_IN";
 
   const form: UseFormReturn<T> = useForm({
@@ -46,7 +50,33 @@ const AuthForm = <T extends FieldValues>({
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async (data) => {};
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const result = await onSubmit(data);
+
+    // if (result.success) {
+    //   toast({
+    //     title: "Success",
+    //     description: isSignIn
+    //       ? "You have successfully signed in."
+    //       : "You have successfully signed up.",
+    //   });
+    // }
+
+    if (result.success) {
+      toast.success(
+        isSignIn
+          ? "You have successfully signed in."
+          : "You have successfully signed up."
+      );
+      router.push("/");
+    } else {
+      toast.error(
+        isSignIn
+          ? "Error signing in."
+          : "Error signing up"
+      );
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -100,7 +130,7 @@ const AuthForm = <T extends FieldValues>({
             type="submit"
             className="w-full md:w-auto bg-gradient-to-r from-orange-500 to-yellow-400 text-yellow-900"
           >
-            {isSignIn ? 'Sign In' : 'Sign Up'}
+            {isSignIn ? "Sign In" : "Sign Up"}
           </Button>
         </form>
       </Form>

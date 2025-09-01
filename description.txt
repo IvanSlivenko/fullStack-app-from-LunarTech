@@ -86,8 +86,19 @@ npx drizzle-kit generate
 
 npx drizzle-kit migrate
 
+------------------------------------------ auth.js  2 : 22 : 18
+https://authjs.dev/
+
+npm install next-auth@beta
+
+npm install bcryptjs
+
+npx auth secret
 
 
+
+
+------------------------------------------ jwt 2: 26:16
 
 --------------------------------------------
 npm run dev
@@ -99,5 +110,5 @@ npm run devt  -------------------------------- mit tailwind watch
 npm run db:studio ---------------------------- запуск сервера neon
 
 --------------------------------------------
-02 : 19 : 26
+02 : 41 : 46
 
