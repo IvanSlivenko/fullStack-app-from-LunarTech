@@ -18,12 +18,7 @@ const BookOverview = ({
   return (
     <section
       className="text-white font-ibmPlexItalic"
-      // style={{
-      //   border: "1px solid black",
-      // }}
     >
-      {/* ======================================================================================== */}
-      {/* <span>BookOverwiew_1</span> */}
 
       <div className="flex flex-1 flex-row gap-5">
         {/* --------------------------------------------------------- */}
@@ -61,7 +56,21 @@ const BookOverview = ({
           </div>
           <p className="">{description}</p>
 
-          <Button variant="custome_4" className="button-book-borrow ">
+          <Button 
+          // variant="custome_4" 
+          className="bg-gradient-to-r from-yellow-400 to-white 
+          font-semibold 
+          px-4 
+          py-2 
+          rounded-lg 
+          flex 
+          items-center 
+          gap-2 
+          hover:opacity-90 
+          transition
+           text-yellow-700 
+           md:w-[120px] w-full"
+          >
             <img src="book-logo_2.svg" alt="book" width={20} height={20} />
             <p>Borrow Book</p>
           </Button>

@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import React, { ReactNode } from "react";
 import Header from "@/components/Header";
+import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 
 export const bebasNeue = localFont({
   src: "../fonts/BebasNeue-Regular.ttf", // шлях від файлу layout.tsx
@@ -23,7 +25,14 @@ export const ibmPlexVarible = localFont({
   style: "normal",
 });
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
+
+   const session = await auth();
+  
+    if(!session){
+      redirect('/sign-in')
+    }
+
   return (
     <main
       className={`${bebasNeue.variable} ${ibmPlexItalic.variable} ${ibmPlexVarible.variable} font-bebas root-container`}

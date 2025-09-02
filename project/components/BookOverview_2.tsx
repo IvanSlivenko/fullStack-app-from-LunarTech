@@ -98,7 +98,20 @@ const BookOverviewColumn = ({
           </div>
           <p className="">{description}</p>
 
-          <Button variant="custome_4" className="btn-BookOverview_2 ">
+          <Button 
+          // variant="custome_4" 
+          className="bg-gradient-to-r from-yellow-400 to-white 
+          font-semibold 
+          px-4 
+          py-2 
+          rounded-lg 
+          flex 
+          items-center 
+          gap-2 
+          hover:opacity-90 
+          transition
+           text-yellow-700 
+           md:w-[120px] w-full">
             <img src="book-logo_2.svg" alt="book" width={20} height={20} />
             <p>Borrow Book</p>
           </Button>
