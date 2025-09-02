@@ -9,13 +9,17 @@ export const bebasNeue = localFont({
   variable: "--font-bebas", // змінна для Tailwind
   weight: "400",
   style: "normal",
+  display: "swap",
 });
+
+
 
 export const ibmPlexItalic = localFont({
   src: "../fonts/IBMPlexSans-Italic-VariableFont_wdth,wght.ttf", // шлях від файлу layout.tsx
   variable: "--font-ibmPlexItalic", // змінна для Tailwind
   weight: "400",
   style: "normal",
+  display: "swap",
 });
 
 export const ibmPlexVarible = localFont({
@@ -23,6 +27,7 @@ export const ibmPlexVarible = localFont({
   variable: "--font-ibmPlexVariable", // змінна для Tailwind
   weight: "400",
   style: "normal",
+  display: "swap",
 });
 
 const Layout = async ({ children }: { children: ReactNode }) => {
@@ -39,7 +44,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
     >
       <div className="max-w-7xl mx-auto">
         <span className="text-stone-50">
-          <Header />
+          <Header  session={session}/>
         </span>
         <div className="mt-20 pb-20">{children}</div>
       </div>

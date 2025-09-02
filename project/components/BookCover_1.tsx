@@ -24,14 +24,14 @@ interface Props {
 const BookCover_1 = ({
   variant = "regular",
   coverColor = "#012B48",
-  coverImage = "../public/images/kanyon.jpg",
+  coverImage = "/images/kanyon.jpg",
 }: Props) => {
   return (
     // <div className="relative transition-all duration-300 z-0">
     <div className="relative transition-all duration-300"
     >
       {/* w-200 h-280 */}
-      <Book3D cover={coverImage} color={coverColor} width="200" height="300"  widthImg="200" heightImg="300" widthSvg="" heightSvg="370" />
+      <Book3D cover={coverImage} color={coverColor} width="200" height="300"  widthImg="200" heightImg="300" widthSvg="400" heightSvg="370" />
     </div>
   );
 };

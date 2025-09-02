@@ -41,29 +41,25 @@ export const BookCard = ({
   color,
   isLoanedBook = false,
 }: Book) => {
-
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  
+
   return (
     <div className="flex flex-col items-center gap-2">
-      <li className={cn(isLoanedBook && "xs:w-52 w-full")}>
+      {/* <li className={cn(isLoanedBook && "xs:w-52 w-full")} */}
+      <li>
         <Link href={`/books/${id}`}>
           <BookCover_2
             coverColor={color}
             coverImage={cover}
             className={cn(isLoanedBook && "w-full flex flex-col items-center")}
           ></BookCover_2>
-          <div
-            className={cn("mt-4", !isLoanedBook && "xs:max-w-40 max-w-28")}
-          >
+          <div className={cn("mt-4", !isLoanedBook && "xs:max-w-40 max-w-28")}>
             <p className="text-white">{title}</p>
             <p className="font-ibmPlexItalic text-white">{genre}</p>
           </div>
           {isLoanedBook && (
             <div className="mt-3 min-w-full">
-              <div
-                className="book-loaned"
-              >
+              <div className="book-loaned">
                 <NextImage
                   src="calendar.svg"
                   alt="calendar"
@@ -76,16 +72,9 @@ export const BookCard = ({
                 </p>
               </div>
 
-              <div
-                className="flex flex-1 justify-center"
-                style={{
-                  marginTop: "10px",
-                  width: "270px",
-                }}
-              >
+              <div className="flex flex-1 justify-center">
                 <Button
                   variant="default"
-                  // className={isDesktop ? "book-btn-desktop font-ibmPlexItalic" : "book-btn-mobail font-ibmPlexItalic"}
                   className="bg-orange-200 text-yellow-800 md:w-[120px] w-full"
                 >
                   Download recipient

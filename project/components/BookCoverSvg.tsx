@@ -7,6 +7,7 @@ import NextImage from "next/image";
 import kanyon from "../public/images/kanyon_2.jpg";
 
 
+
 const Book3D = ({
   cover,
   color,
@@ -17,32 +18,39 @@ const Book3D = ({
   widthSvg,
   heightSvg
 }: {
-  cover: string;
-  color: string;
-  width: string;
-  height: string;
-  widthImg: string;
-  heightImg: string;
-  widthSvg: string;
-  heightSvg: string;
+  cover?: string;
+  color?: string;
+  width?: string;
+  height?: string;
+  widthImg?: string;
+  heightImg?: string;
+  widthSvg?: string;
+  heightSvg?: string;
 
 }) => {
-  const [src, setSrc] = useState(cover || kanyon);
+  // const [src, setSrc] = useState(cover || kanyon);
+  const defaultImage = "/images/kanyon_2.jpg"
+  const [src, setSrc] = useState<string>(defaultImage);
 
   useEffect(() => {
-    if (!cover) return;
+    // if (!cover) return;
+    if(!cover) {
+      cover=defaultImage
+    }
     const img = new window.Image();
     img.src = cover;
     img.onload = () => setSrc(cover); // валідне зображення
-    img.onerror = () => setSrc(kanyon); // fallback
+    img.onerror = () => setSrc(defaultImage); // fallback
   }, [cover]);
+
+
+
+
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 220 280"
-      // width="200"
-      // height="280"
       width={widthSvg}
       height={heightSvg}
     >
@@ -89,7 +97,9 @@ const Book3D = ({
         clipPath="url(#clip)"
       >
         <img
-          src={typeof src === "string" ? src : (src as any).src}
+          // src={typeof src === "string" ? src : (src as any).src}
+          src={typeof src === "string" ? src : defaultImage}
+          // src={src}
           alt="Book cover"
           width={widthImg}
           height={heightImg}
