@@ -54,28 +54,38 @@ const AuthForm = <T extends FieldValues>({
   const handleSubmit: SubmitHandler<T> = async (data) => {
     const result = await onSubmit(data);
 
-    // if (result.success) {
-    //   toast({
-    //     title: "Success",
-    //     description: isSignIn
-    //       ? "You have successfully signed in."
-    //       : "You have successfully signed up.",
-    //   });
-    // }
-
-    if (result.success) {
+if (result.success) {
+      // ✅ Успіх
       toast.success(
         isSignIn
           ? "You have successfully signed in."
-          : "You have successfully signed up."
+          : "You have successfully signed up.",
+        {
+          description: isSignIn ? "Welcome back 🚀" : "Welcome aboard 📚",
+          duration: 5000,
+          style: {
+            background: "#1a1a1a",
+            color: "#fff",
+            border: "1px solid #ffcc00",
+          },
+          className: "rounded-xl shadow-lg",
+          icon: isSignIn ? "🔥" : "✨",
+        }
       );
+
       router.push("/");
     } else {
-      toast.error(
-        isSignIn
-          ? "Error signing in."
-          : "Error signing up"
-      );
+      // ❌ Помилка
+      toast.error(isSignIn ? "Error signing in." : "Error signing up.", {
+        description: result.message || "Please try again.",
+        style: {
+          background: "#330000",
+          color: "#fff",
+          border: "1px solid #ff4444",
+        },
+        className: "rounded-xl shadow-lg",
+        icon: "⚠️",
+      });
     }
   };
 
@@ -151,3 +161,5 @@ const AuthForm = <T extends FieldValues>({
 };
 
 export default AuthForm;
+
+

@@ -105,6 +105,9 @@ npx auth secret
 npx shadcn@latest add avatar
 
 
+---------------------------------------------------------------- toast
+npx shadcn-ui@latest add toast
+
 
 
 
