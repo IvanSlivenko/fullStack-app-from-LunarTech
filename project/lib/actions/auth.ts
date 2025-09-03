@@ -7,11 +7,19 @@ import { eq } from "drizzle-orm";
 // import { redirect } from "next/dist/server/api-utils";
 // import { success } from "zod";
 import { signIn } from "@/auth";
+import { headers } from "next/headers";
+import ratelimit from "../ratelimit";
+import { redirect } from "next/navigation";
 
 export const singInWitchCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">
 ) => {
   const { email, password } = params;
+
+  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) return redirect("/too-fast");
 
   try {
     const result = await signIn("credentials", {
@@ -25,7 +33,6 @@ export const singInWitchCredentials = async (
     }
 
     return { success: true };
-
   } catch (error) {
     console.log(error, "SignIn error");
     return { success: false, error: "SignIn error" };
@@ -34,6 +41,12 @@ export const singInWitchCredentials = async (
 
 export const singUp = async (params: AuthCredentials) => {
   const { fullName, email, universityId, password, universityCard } = params;
+
+  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
+  const { success } = await ratelimit.limit(ip);
+
+  if (!success) return redirect("/too-fast");
+
   const existingUser = await db
     .select()
     .from(users)

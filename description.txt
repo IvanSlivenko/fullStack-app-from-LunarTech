@@ -110,7 +110,13 @@ npx shadcn-ui@latest add toast
 
 
 
+---------------------------------------------------------------- upstash 2 : 54 : 37
 
+https://upstash.com/docs/redis/sdks/ratelimit-ts/gettingstarted
+
+npm install @upstash/ratelimit
+
+npm install @upstash/redis
 
 
 
@@ -127,5 +133,5 @@ npm run devt  -------------------------------- mit tailwind watch
 npm run db:studio ---------------------------- запуск сервера neon
 
 --------------------------------------------
-02 : 51 : 05
+03 : 04 : 08
 
