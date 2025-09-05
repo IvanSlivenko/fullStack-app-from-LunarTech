@@ -95,7 +95,8 @@ npm install bcryptjs
 
 npx auth secret
 
-
+---------------------------------------------------------------------------- autchentilateCard
+https://www.easyidcard.com/contactUs?SignUp
 
 
 
@@ -118,6 +119,7 @@ npm install @upstash/ratelimit
 
 npm install @upstash/redis
 
+npm install @upstash/workflow
 
 
 
@@ -133,5 +135,5 @@ npm run devt  -------------------------------- mit tailwind watch
 npm run db:studio ---------------------------- запуск сервера neon
 
 --------------------------------------------
-03 : 04 : 08
+03 : 15 : 23
 
