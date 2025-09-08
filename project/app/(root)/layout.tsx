@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import Header from "@/components/Header";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { after } from "next/server";
+// import { after } from "next/server";
 import { users } from "@/database/schema";
 import { db } from "@/database/drizzle";
 import { eq } from "drizzle-orm";
@@ -39,20 +39,40 @@ const Layout = async ({ children }: { children: ReactNode }) => {
     redirect("/sign-in");
   }
 
-  // after(async() => {
-  //   if(!session?.user.id)return
-  //   await db.update(users)
-  //   .set({lastActivityDate: new Date()
-  //   .toISOString()
-  //   .slice(0,10)})
-  //   .where(eq(users.id, session?.user?.id))
-  // })
+  // if (session?.user.id) {
+  //   //get the user see if the last activity date is today
 
-  if(session?.user.id) {
-    await db
-      .update(users)
-      .set({lastActivityDate: new Date().toISOString().slice(0, 10)})
-      .where(eq(users.id, session.user.id));
+  //   const user = await db
+  //     .select()
+  //     .from(users)
+  //     .where(eq(users.id, session?.user?.id))
+  //     .limit(1);
+
+  //   if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10)) {
+  //     return;
+  //   }
+
+  //   await db
+  //     .update(users)
+  //     .set({ lastActivityDate: new Date().toISOString().slice(0, 10) })
+  //     .where(eq(users.id, session.user.id));
+  // }
+
+  if (session?.user.id) {
+    const today = new Date().toISOString().slice(0, 10);
+
+    const [user] = await db
+      .select({ lastActivityDate: users.lastActivityDate })
+      .from(users)
+      .where(eq(users.id, session.user.id))
+      .limit(1);
+
+    if (user && user.lastActivityDate !== today) {
+      await db
+        .update(users)
+        .set({ lastActivityDate: today })
+        .where(eq(users.id, session.user.id));
+    }
   }
 
   return (
