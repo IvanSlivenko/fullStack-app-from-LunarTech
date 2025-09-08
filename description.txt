@@ -154,6 +154,11 @@ umanproger.online
 https://upstash.com/docs/qstash/integrations/resend
 
 
+--------------------------------------------------------------- after 3 : 33 : 28
+https://nextjs.org/docs/app/api-reference/functions/after
+
+
+
 --------------------------------------------
 npm run dev
 
@@ -164,5 +169,5 @@ npm run devt  -------------------------------- mit tailwind watch
 npm run db:studio ---------------------------- запуск сервера neon
 
 --------------------------------------------
-03 : 33 : 02
+03 : 35 : 11
 
