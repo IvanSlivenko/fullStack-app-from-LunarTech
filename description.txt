@@ -150,6 +150,10 @@ https://hostiq.ua/wiki/faq-how-to-change-dns-records
 umanproger.online
 
 
+
+https://upstash.com/docs/qstash/integrations/resend
+
+
 --------------------------------------------
 npm run dev
 
@@ -160,5 +164,5 @@ npm run devt  -------------------------------- mit tailwind watch
 npm run db:studio ---------------------------- запуск сервера neon
 
 --------------------------------------------
-03 : 27 : 04
+03 : 33 : 02
 
