@@ -30,42 +30,47 @@ const imagekit = new ImageKit({
   urlEndpoint,
 });
 
-// Цей роут обробляє GET-запит
+function getCorsOrigin(origin: string | null) {
+  if (!origin) return "";
+
+  // Дозволяємо всі піддомени vercel з цим проєктом
+  if (origin.startsWith("https://full-stack-app-from-lunar-tech")) {
+    return origin;
+  }
+
+  return "";
+}
+
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
+  const corsOrigin = getCorsOrigin(origin);
 
-  const allowedOrigins = [
-    "https://full-stack-app-from-lunar-tech.vercel.app",
-    "https://full-stack-app-from-lunar-tech-4xgr6w4kb.vercel.app"
-  ];
-
-  const corsOrigin = allowedOrigins.includes(origin ?? "") ? origin : "";
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": corsOrigin || "*", // 👈 fallback to "*" if needed
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  });
 
   const authParams = imagekit.getAuthenticationParameters();
-
-  const response = NextResponse.json(authParams);
-  response.headers.set("Access-Control-Allow-Origin", corsOrigin);
-  response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-
-  return response;
+  return new NextResponse(JSON.stringify(authParams), {
+    status: 200,
+    headers,
+  });
 }
 
-// Цей роут обробляє preflight-запит (OPTIONS)
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
+  const corsOrigin = getCorsOrigin(origin);
 
-  const allowedOrigins = [
-    "https://full-stack-app-from-lunar-tech.vercel.app",
-    "https://full-stack-app-from-lunar-tech-4xgr6w4kb.vercel.app"
-  ];
+  const headers = new Headers({
+    "Access-Control-Allow-Origin": corsOrigin || "*", // 👈 fallback to "*" if needed
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  });
 
-  const corsOrigin = allowedOrigins.includes(origin ?? "") ? origin : "";
-
-  const response = new NextResponse(null, { status: 204 });
-  response.headers.set("Access-Control-Allow-Origin", corsOrigin);
-  response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-
-  return response;
+  return new NextResponse(null, {
+    status: 204,
+    headers,
+  });
 }
+
