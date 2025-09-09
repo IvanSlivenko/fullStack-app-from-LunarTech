@@ -41,16 +41,19 @@ const allowedOrigins =
 function getCorsOrigin(origin: string | null): string | null {
   if (!origin) return null;
 
-  // Автоматично дозволяємо всі preview-домени Vercel
+  // Автоматично дозволяємо preview-деплої Vercel
   if (origin.endsWith(".vercel.app")) {
+    console.log("✅ Дозволено preview Vercel:", origin);
     return origin;
   }
 
-  // Перевіряємо, чи origin є у списку дозволених
+  // Якщо origin у списку з .env
   if (allowedOrigins.some((o) => origin.startsWith(o))) {
+    console.log("✅ Дозволено з .env:", origin);
     return origin;
   }
 
+  console.warn("❌ Заблокований origin:", origin);
   return null;
 }
 
@@ -98,6 +101,7 @@ export async function OPTIONS(request: Request) {
     headers,
   });
 }
+
 
 
 
