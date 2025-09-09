@@ -33,11 +33,12 @@ const imagekit = new ImageKit({
 function getCorsOrigin(origin: string | null): string | null {
   if (!origin) return null;
 
+  // Дозволяємо всі піддомени для цього проєкту
   if (origin.startsWith("https://full-stack-app-from-lunar-tech")) {
     return origin;
   }
 
-  return null; // ❌ не дозволено
+  return null; // Якщо домен не дозволений — повертаємо null
 }
 
 function createCorsHeaders(origin: string | null): Headers {
@@ -49,7 +50,10 @@ function createCorsHeaders(origin: string | null): Headers {
   const allowedOrigin = getCorsOrigin(origin);
 
   if (allowedOrigin) {
-    headers.set("Access-Control-Allow-Origin", allowedOrigin);
+    headers.set("Access-Control-Allow-Origin", allowedOrigin); // Додаємо дозволений Origin
+  } else {
+    // Якщо домен не дозволений, не ставимо заголовок
+    headers.set("Access-Control-Allow-Origin", ""); // не порожній заголовок
   }
 
   return headers;
@@ -76,4 +80,5 @@ export async function OPTIONS(request: Request) {
     headers,
   });
 }
+
 
