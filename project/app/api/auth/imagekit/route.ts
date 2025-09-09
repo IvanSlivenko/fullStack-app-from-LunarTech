@@ -51,9 +51,6 @@ function createCorsHeaders(origin: string | null): Headers {
 
   if (allowedOrigin) {
     headers.set("Access-Control-Allow-Origin", allowedOrigin); // Додаємо дозволений Origin
-  } else {
-    // Якщо домен не дозволений, не ставимо заголовок
-    headers.set("Access-Control-Allow-Origin", ""); // не порожній заголовок
   }
 
   return headers;
@@ -80,5 +77,6 @@ export async function OPTIONS(request: Request) {
     headers,
   });
 }
+
 
 
