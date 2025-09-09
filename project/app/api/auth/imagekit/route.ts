@@ -30,17 +30,19 @@ const imagekit = new ImageKit({
   urlEndpoint,
 });
 
+// Перевіряємо, чи домен дозволений
 function getCorsOrigin(origin: string | null): string | null {
-  if (!origin) return null;
+  if (!origin) return null; // Якщо немає origin, не дозволяємо доступ
 
   // Дозволяємо всі піддомени для цього проєкту
   if (origin.startsWith("https://full-stack-app-from-lunar-tech")) {
-    return origin;
+    return origin; // Повертаємо допустимий origin
   }
 
-  return null; // Якщо домен не дозволений — повертаємо null
+  return null; // Якщо домен не дозволений, повертаємо null
 }
 
+// Створення заголовків CORS
 function createCorsHeaders(origin: string | null): Headers {
   const headers = new Headers({
     "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -49,34 +51,36 @@ function createCorsHeaders(origin: string | null): Headers {
 
   const allowedOrigin = getCorsOrigin(origin);
 
+  // Якщо origin дозволений, встановлюємо заголовок
   if (allowedOrigin) {
-    headers.set("Access-Control-Allow-Origin", allowedOrigin); // Додаємо дозволений Origin
+    headers.set("Access-Control-Allow-Origin", allowedOrigin);
   }
 
   return headers;
 }
 
 export async function GET(request: Request) {
-  const origin = request.headers.get("origin");
-  const headers = createCorsHeaders(origin);
+  const origin = request.headers.get("origin"); // Отримуємо origin запиту
+  const headers = createCorsHeaders(origin); // Створюємо CORS заголовки
 
-  const authParams = imagekit.getAuthenticationParameters();
+  const authParams = imagekit.getAuthenticationParameters(); // Параметри автентифікації
 
   return new NextResponse(JSON.stringify(authParams), {
     status: 200,
-    headers,
+    headers, // Додаємо заголовки до відповіді
   });
 }
 
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
-  const headers = createCorsHeaders(origin);
+  const headers = createCorsHeaders(origin); // Створюємо заголовки для preflight запиту
 
   return new NextResponse(null, {
-    status: 204,
-    headers,
+    status: 204, // Повертаємо статус 204 (No Content)
+    headers, // Додаємо заголовки
   });
 }
+
 
 
 
