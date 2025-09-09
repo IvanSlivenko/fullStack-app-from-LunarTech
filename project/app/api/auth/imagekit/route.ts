@@ -68,7 +68,8 @@ function createCorsHeaders(origin: string | null): Headers {
 
   const allowedOrigin = getCorsOrigin(origin);
 
-  if (allowedOrigin) {
+  // Встановлюємо тільки якщо є значення
+  if (allowedOrigin && allowedOrigin.length > 0) {
     headers.set("Access-Control-Allow-Origin", allowedOrigin);
   }
 
@@ -101,6 +102,7 @@ export async function OPTIONS(request: Request) {
     headers,
   });
 }
+
 
 
 
