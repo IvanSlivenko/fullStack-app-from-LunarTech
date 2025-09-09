@@ -30,28 +30,37 @@ const imagekit = new ImageKit({
   urlEndpoint,
 });
 
-function getCorsOrigin(origin: string | null) {
-  if (!origin) return "";
+function getCorsOrigin(origin: string | null): string | null {
+  if (!origin) return null;
 
-  // Дозволяємо всі піддомени vercel з цим проєктом
   if (origin.startsWith("https://full-stack-app-from-lunar-tech")) {
     return origin;
   }
 
-  return "";
+  return null; // ❌ не дозволено
 }
 
-export async function GET(request: Request) {
-  const origin = request.headers.get("origin");
-  const corsOrigin = getCorsOrigin(origin);
-
+function createCorsHeaders(origin: string | null): Headers {
   const headers = new Headers({
-    "Access-Control-Allow-Origin": corsOrigin || "*", // 👈 fallback to "*" if needed
     "Access-Control-Allow-Methods": "GET, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   });
 
+  const allowedOrigin = getCorsOrigin(origin);
+
+  if (allowedOrigin) {
+    headers.set("Access-Control-Allow-Origin", allowedOrigin);
+  }
+
+  return headers;
+}
+
+export async function GET(request: Request) {
+  const origin = request.headers.get("origin");
+  const headers = createCorsHeaders(origin);
+
   const authParams = imagekit.getAuthenticationParameters();
+
   return new NextResponse(JSON.stringify(authParams), {
     status: 200,
     headers,
@@ -60,13 +69,7 @@ export async function GET(request: Request) {
 
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
-  const corsOrigin = getCorsOrigin(origin);
-
-  const headers = new Headers({
-    "Access-Control-Allow-Origin": corsOrigin || "*", // 👈 fallback to "*" if needed
-    "Access-Control-Allow-Methods": "GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  });
+  const headers = createCorsHeaders(origin);
 
   return new NextResponse(null, {
     status: 204,
