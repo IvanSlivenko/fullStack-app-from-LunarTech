@@ -43,7 +43,7 @@ function getCorsOrigin(origin: string | null): string | null {
 
   const cleanOrigin = origin.trim().toLowerCase();
 
-  // Дозволяємо усі preview-деплої Vercel
+  // Дозволяємо усі preview-деплоя Vercel (*.vercel.app)
   if (cleanOrigin.endsWith(".vercel.app")) {
     console.log("✅ Дозволено preview Vercel:", cleanOrigin);
     return cleanOrigin;
@@ -77,6 +77,7 @@ function createCorsHeaders(origin: string | null): Headers {
   return headers;
 }
 
+// GET — повертає параметри автентифікації ImageKit
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
   const headers = createCorsHeaders(origin);
@@ -88,11 +89,12 @@ export async function GET(request: Request) {
     headers: {
       ...Object.fromEntries(headers.entries()),
       "Content-Type": "application/json",
-      "X-Debug-Origin": origin || "no-origin", // для відладки в Network
+      "X-Debug-Origin": origin || "no-origin", // для дебагу в Network
     },
   });
 }
 
+// OPTIONS — preflight-запит
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
   const headers = createCorsHeaders(origin);
@@ -104,6 +106,7 @@ export async function OPTIONS(request: Request) {
     headers,
   });
 }
+
 
 
 
