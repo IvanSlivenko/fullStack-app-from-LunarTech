@@ -30,28 +30,31 @@ const imagekit = new ImageKit({
   urlEndpoint,
 });
 
-// Перевіряємо, чи домен дозволений
+// Масив дозволених доменів (бере з .env, розділяючи через кому)
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") ?? [
+  "http://localhost:3000",
+  "https://full-stack-app-from-lunar-tech.vercel.app",
+];
+
+// Перевірка, чи дозволений origin
 function getCorsOrigin(origin: string | null): string | null {
-  if (!origin) return null; // Якщо немає origin, не дозволяємо доступ
-
-  // Дозволяємо всі піддомени для цього проєкту
-  if (origin.startsWith("https://full-stack-app-from-lunar-tech")) {
-    return origin; // Повертаємо допустимий origin
+  if (!origin) return null;
+  if (allowedOrigins.some((o) => origin.startsWith(o))) {
+    return origin;
   }
-
-  return null; // Якщо домен не дозволений, повертаємо null
+  return null;
 }
 
-// Створення заголовків CORS
+// Формування заголовків CORS
 function createCorsHeaders(origin: string | null): Headers {
   const headers = new Headers({
     "Access-Control-Allow-Methods": "GET, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Credentials": "true", // якщо будуть cookies/headers
   });
 
   const allowedOrigin = getCorsOrigin(origin);
 
-  // Якщо origin дозволений, встановлюємо заголовок
   if (allowedOrigin) {
     headers.set("Access-Control-Allow-Origin", allowedOrigin);
   }
@@ -60,26 +63,30 @@ function createCorsHeaders(origin: string | null): Headers {
 }
 
 export async function GET(request: Request) {
-  const origin = request.headers.get("origin"); // Отримуємо origin запиту
-  const headers = createCorsHeaders(origin); // Створюємо CORS заголовки
+  const origin = request.headers.get("origin");
+  const headers = createCorsHeaders(origin);
 
-  const authParams = imagekit.getAuthenticationParameters(); // Параметри автентифікації
+  const authParams = imagekit.getAuthenticationParameters();
 
   return new NextResponse(JSON.stringify(authParams), {
     status: 200,
-    headers, // Додаємо заголовки до відповіді
+    headers: {
+      ...Object.fromEntries(headers.entries()),
+      "Content-Type": "application/json",
+    },
   });
 }
 
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
-  const headers = createCorsHeaders(origin); // Створюємо заголовки для preflight запиту
+  const headers = createCorsHeaders(origin);
 
   return new NextResponse(null, {
-    status: 204, // Повертаємо статус 204 (No Content)
-    headers, // Додаємо заголовки
+    status: 204,
+    headers,
   });
 }
+
 
 
 
