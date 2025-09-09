@@ -10,6 +10,8 @@ import { signIn } from "@/auth";
 import { headers } from "next/headers";
 import ratelimit from "../ratelimit";
 import { redirect } from "next/navigation";
+import { workflowclient } from "../workflow";
+import config from "../config";
 
 export const singInWitchCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">
@@ -68,7 +70,15 @@ export const singUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    // await singInWitchCredentials({ email, password });
+    await workflowclient.trigger({
+      url: `${config.env.prodApiEndpoint}/api/workflow/onboarding`,
+      body: {
+        email,
+        fullName,
+      },
+    });
+
+    await singInWitchCredentials({ email, password });
     return { success: true };
   } catch (error) {
     console.log(error, "Signup error");
