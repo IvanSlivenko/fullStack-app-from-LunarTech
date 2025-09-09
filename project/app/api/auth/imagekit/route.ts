@@ -39,21 +39,25 @@ const allowedOrigins =
 
 // Перевірка, чи дозволений origin
 function getCorsOrigin(origin: string | null): string | null {
-  if (!origin) return null;
+  if (!origin) {console.log("origin немає");
+    return null;}
+     
 
-  // Автоматично дозволяємо preview-деплої Vercel
-  if (origin.endsWith(".vercel.app")) {
-    console.log("✅ Дозволено preview Vercel:", origin);
-    return origin;
+  const cleanOrigin = origin.trim().toLowerCase();
+
+  // Автоматично дозволяємо ВСІ subdomain *.vercel.app
+  if (cleanOrigin.endsWith(".vercel.app")) {
+    console.log("✅ Дозволено preview Vercel:", cleanOrigin);
+    return cleanOrigin;
   }
 
   // Якщо origin у списку з .env
-  if (allowedOrigins.some((o) => origin.startsWith(o))) {
-    console.log("✅ Дозволено з .env:", origin);
-    return origin;
+  if (allowedOrigins.some((o) => cleanOrigin.startsWith(o.toLowerCase()))) {
+    console.log("✅ Дозволено з .env:", cleanOrigin);
+    return cleanOrigin;
   }
 
-  console.warn("❌ Заблокований origin:", origin);
+  console.warn("❌ Заблокований origin:", cleanOrigin);
   return null;
 }
 
