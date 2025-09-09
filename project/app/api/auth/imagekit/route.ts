@@ -41,16 +41,26 @@ const allowedOrigins =
 function getCorsOrigin(origin: string | null): string | null {
   if (!origin) return null;
 
+  // Обрізаємо пробіли і приводимо до lowercase
   const cleanOrigin = origin.trim().toLowerCase();
 
-  // Дозволяємо усі preview-деплоя Vercel (*.vercel.app)
-  if (cleanOrigin.endsWith(".vercel.app")) {
-    console.log("✅ Дозволено preview Vercel:", cleanOrigin);
-    return cleanOrigin;
+  // Дозволяємо всі preview-деплоя Vercel
+  // Беремо тільки протокол + домен (не path)
+  try {
+    const url = new URL(cleanOrigin);
+    const hostname = url.hostname; // full-stack-app-from-lunar-tech-gldkml5wa.vercel.app
+
+    if (hostname.endsWith(".vercel.app")) {
+      console.log("✅ Дозволено preview Vercel:", cleanOrigin);
+      return cleanOrigin;
+    }
+  } catch (e) {
+    console.warn("❌ Невірний origin:", cleanOrigin);
+    return null;
   }
 
   // Дозволені домени з .env
-  if (allowedOrigins.some((o) => cleanOrigin.startsWith(o))) {
+  if (allowedOrigins.some((o) => cleanOrigin.startsWith(o.toLowerCase()))) {
     console.log("✅ Дозволено з .env:", cleanOrigin);
     return cleanOrigin;
   }
