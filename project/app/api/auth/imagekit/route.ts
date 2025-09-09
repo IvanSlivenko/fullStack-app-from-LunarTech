@@ -32,27 +32,25 @@ const imagekit = new ImageKit({
 
 // Масив дозволених доменів з .env
 const allowedOrigins =
-  process.env.ALLOWED_ORIGINS?.split(",").map((o) => o.trim()) ?? [
+  process.env.ALLOWED_ORIGINS?.split(",").map((o) => o.trim().toLowerCase()) ?? [
     "http://localhost:3000",
     "https://full-stack-app-from-lunar-tech.vercel.app",
   ];
 
 // Перевірка, чи дозволений origin
 function getCorsOrigin(origin: string | null): string | null {
-  if (!origin) {console.log("origin немає");
-    return null;}
-     
+  if (!origin) return null;
 
   const cleanOrigin = origin.trim().toLowerCase();
 
-  // Автоматично дозволяємо ВСІ subdomain *.vercel.app
+  // Дозволяємо усі preview-деплої Vercel
   if (cleanOrigin.endsWith(".vercel.app")) {
     console.log("✅ Дозволено preview Vercel:", cleanOrigin);
     return cleanOrigin;
   }
 
-  // Якщо origin у списку з .env
-  if (allowedOrigins.some((o) => cleanOrigin.startsWith(o.toLowerCase()))) {
+  // Дозволені домени з .env
+  if (allowedOrigins.some((o) => cleanOrigin.startsWith(o))) {
     console.log("✅ Дозволено з .env:", cleanOrigin);
     return cleanOrigin;
   }
@@ -72,7 +70,6 @@ function createCorsHeaders(origin: string | null): Headers {
 
   const allowedOrigin = getCorsOrigin(origin);
 
-  // Встановлюємо тільки якщо є значення
   if (allowedOrigin && allowedOrigin.length > 0) {
     headers.set("Access-Control-Allow-Origin", allowedOrigin);
   }
@@ -91,6 +88,7 @@ export async function GET(request: Request) {
     headers: {
       ...Object.fromEntries(headers.entries()),
       "Content-Type": "application/json",
+      "X-Debug-Origin": origin || "no-origin", // для відладки в Network
     },
   });
 }
@@ -106,6 +104,7 @@ export async function OPTIONS(request: Request) {
     headers,
   });
 }
+
 
 
 
