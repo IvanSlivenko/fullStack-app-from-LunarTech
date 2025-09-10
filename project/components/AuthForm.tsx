@@ -76,8 +76,10 @@ if (result.success) {
       router.push("/");
     } else {
       // ❌ Помилка
+      // toast.error(isSignIn ? "Error signing in." : "Error signing up.", {
+      //   description: result.message || "Please try again.",
       toast.error(isSignIn ? "Error signing in." : "Error signing up.", {
-        description: result.message || "Please try again.",
+      description: result.error || "Please try again.",  
         style: {
           background: "#330000",
           color: "#fff",

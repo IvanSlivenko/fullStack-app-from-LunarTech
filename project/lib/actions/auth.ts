@@ -41,6 +41,64 @@ export const singInWitchCredentials = async (
   }
 };
 
+// export const singUp = async (params: AuthCredentials) => {
+//   const { fullName, email, universityId, password, universityCard } = params;
+
+//   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
+//   const { success } = await ratelimit.limit(ip);
+
+//   if (!success) return redirect("/too-fast");
+
+//   const existingUser = await db
+//     .select()
+//     .from(users)
+//     .where(eq(users.email, email))
+//     .limit(1);
+
+//   if (existingUser.length > 0) {
+//     return { success: false, error: "User already exists" };
+//   }
+
+//   const hashedPassword = await hash(password, 10);
+
+//   try {
+//     await db.insert(users).values({
+//       fullName,
+//       email,
+//       universityId,
+//       password: hashedPassword,
+//       universityCard,
+//     });
+
+//     // await workflowclient.trigger({
+//     //   url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
+//     //   body: {
+//     //     email,
+//     //     fullName,
+//     //   },
+//     // });
+
+//     const baseUrl =
+//     process.env.NODE_ENV === "production"
+//     ? config.env.prodApiEndpoint
+//     : config.env.apiEndpoint_2; // localhost або інший dev URL
+
+//     await workflowclient.trigger({
+//       url: `${baseUrl}/api/workflows/onboarding`,
+//       body: { email, fullName },
+//     });
+
+//     await singInWitchCredentials({ email, password });
+//     return { success: true };
+//   } catch (error) {
+//     console.log(error, "Signup error");
+//     return { success: false, error: "Signup error" };
+//   }
+// };
+
+
+// ----------------------------------------------------------------- var 2
+
 export const singUp = async (params: AuthCredentials) => {
   const { fullName, email, universityId, password, universityCard } = params;
 
@@ -70,18 +128,10 @@ export const singUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    // await workflowclient.trigger({
-    //   url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
-    //   body: {
-    //     email,
-    //     fullName,
-    //   },
-    // });
-
     const baseUrl =
-    process.env.NODE_ENV === "production"
-    ? config.env.prodApiEndpoint
-    : config.env.apiEndpoint_2; // localhost або інший dev URL
+      process.env.NODE_ENV === "production"
+        ? config.env.prodApiEndpoint
+        : config.env.apiEndpoint_2;
 
     await workflowclient.trigger({
       url: `${baseUrl}/api/workflows/onboarding`,
@@ -89,9 +139,15 @@ export const singUp = async (params: AuthCredentials) => {
     });
 
     await singInWitchCredentials({ email, password });
+
     return { success: true };
-  } catch (error) {
-    console.log(error, "Signup error");
-    return { success: false, error: "Signup error" };
+  } catch (error: any) {
+    console.error("Signup error:", error);
+
+    if (error.code === "23505") {
+      return { success: false, error: "This university ID is already registered" };
+    }
+
+    return { success: false, error: error.message || "Signup error" };
   }
 };
