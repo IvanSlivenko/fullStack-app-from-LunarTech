@@ -74,28 +74,27 @@ const allowedOrigins =
 function getCorsOrigin(origin: string | null): string | null {
   if (!origin) return null;
 
-  const cleanOrigin = origin.trim().toLowerCase();
-
   try {
-    const url = new URL(cleanOrigin);
+    const url = new URL(origin);
     const hostname = url.hostname;
 
     // Дозволяємо всі preview-деплоя Vercel
     if (hostname.endsWith(".vercel.app")) {
-      console.log("✅ Дозволено preview Vercel:", cleanOrigin);
-      // повертаємо повний origin з протоколом
-      return url.origin;
+      console.log("✅ Дозволено preview Vercel:", origin);
+      return url.origin; // обов'язково з протоколом
+    }
+
+    // Дозволені origin з .env
+    if (allowedOrigins.includes(origin)) {
+      console.log("✅ Дозволено з .env:", origin);
+      return origin;
     }
   } catch (e) {
-    console.warn("❌ Невірний origin:", cleanOrigin);
+    console.warn("❌ Невірний origin:", origin);
     return null;
   }
 
-  if (allowedOrigins.some((o) => cleanOrigin.startsWith(o.toLowerCase()))) {
-    return cleanOrigin;
-  }
-
-  console.warn("❌ Заблокований origin:", cleanOrigin);
+  console.warn("❌ Заблокований origin:", origin);
   return null;
 }
 
