@@ -181,21 +181,44 @@ function createCorsHeaders(origin: string | null): Headers {
   return headers;
 }
 
+// export async function GET(request: Request) {
+
+//   const origin = request.headers.get("origin");
+
+//   console.log(" GET --------------------------------------------- origin", origin);
+//   const headers = createCorsHeaders(origin);
+//   console.log(" GET --------------------------------------------- headers", headers);
+
+//   const authParams = imagekit.getAuthenticationParameters();
+
+//   return new NextResponse(JSON.stringify(authParams), {
+//     status: 200,
+//     headers: {
+//       ...Object.fromEntries(headers.entries()),
+//       "Content-Type": "application/json",
+//       "X-Debug-Origin": origin || "no-origin",
+//     },
+//   });
+// }
+
 export async function GET(request: Request) {
-
   const origin = request.headers.get("origin");
-
   console.log(" GET --------------------------------------------- origin", origin);
-  const headers = createCorsHeaders(origin);
-  console.log(" GET --------------------------------------------- headers", headers);
+  const allowedOrigin = getCorsOrigin(origin);
+
+  console.log(" GET --------------------------------------------- allowedOrigin", allowedOrigin);
 
   const authParams = imagekit.getAuthenticationParameters();
 
   return new NextResponse(JSON.stringify(authParams), {
     status: 200,
     headers: {
-      ...Object.fromEntries(headers.entries()),
       "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": allowedOrigin || "",
+      "Vary": "Origin",
       "X-Debug-Origin": origin || "no-origin",
     },
   });

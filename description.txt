@@ -171,3 +171,6 @@ npm run db:studio ---------------------------- запуск сервера neon
 --------------------------------------------
 03 : 46 : 03
 
+
+https://full-stack-app-from-lunar-tech.vercel.app
+
