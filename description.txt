@@ -159,6 +159,16 @@ https://nextjs.org/docs/app/api-reference/functions/after
 
 
 
+
+--------------------------------------------------------------- QStash  3 : 49 : 29
+login witch google
+
+
+
+--------------------------------------------------------------- professional  email
+https://hostiq.ua/clients/clientarea.php
+https://hostiq.ua/wiki/ukr/domain-email
+
 --------------------------------------------
 npm run dev
 
@@ -169,7 +179,7 @@ npm run devt  -------------------------------- mit tailwind watch
 npm run db:studio ---------------------------- запуск сервера neon
 
 --------------------------------------------
-03 : 46 : 03
+03 : 53 : 48
 
 
 https://full-stack-app-from-lunar-tech.vercel.app

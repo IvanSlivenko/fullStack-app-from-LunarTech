@@ -76,15 +76,4 @@ export const { POST } = serve<InitialData>(async (context) => {
   }
 });
 
-// async function sendEmail(message: string, email: string) {
-//   console.log(`Sending ${message} email to ${email}`);
 
-//   // throw new Error("Function not implemented.");
-// }
-
-// type UserState = "non-active" | "active";
-
-// const getUserState = async (): Promise<UserState> => {
-//   return "non-active";
-//   //   throw new Error("Function not implemented.");
-// };
