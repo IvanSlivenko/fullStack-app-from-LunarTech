@@ -19,10 +19,31 @@ const {
   },
 } = config;
 
+const getApiUrl = () => {
+  if (typeof window === "undefined") {
+    // Якщо код виконується на сервері (SSR)
+    return process.env.NEXT_PUBLIC_API_ENDPOINT_2; // production / preview
+  }
+
+  // Якщо на клієнті
+  const hostname = window.location.hostname;
+
+  if (hostname === "localhost") {
+    return ""; // відносний шлях, щоб використовувати /api/... без CORS
+  } else {
+    return process.env.NEXT_PUBLIC_API_ENDPOINT_2; // Vercel
+  }
+};
+
+
 const authenticator = async () => {
   try {
+    const API_URL = getApiUrl();
+    const response = await fetch(`${API_URL}/api/auth/imagekit`, {
+      credentials: "include", // якщо потрібні куки
+    });
     // const response = await fetch(`${config.env.apiEndpoint_2}/api/auth/imagekit`);
-    const response = await fetch("/api/auth/imagekit");
+    // const response = await fetch("/api/auth/imagekit");
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Request failed wit status ${response.status}:

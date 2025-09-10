@@ -38,30 +38,60 @@ const allowedOrigins =
   ];
 
 // Перевірка, чи дозволений origin
+// function getCorsOrigin(origin: string | null): string | null {
+//   if (!origin) return null;
+
+//   // Обрізаємо пробіли і приводимо до lowercase
+//   const cleanOrigin = origin.trim().toLowerCase();
+
+//   // Дозволяємо всі preview-деплоя Vercel
+//   // Беремо тільки протокол + домен (не path)
+//   try {
+//     const url = new URL(cleanOrigin);
+//     const hostname = url.hostname; // full-stack-app-from-lunar-tech-gldkml5wa.vercel.app
+
+//     if (hostname.endsWith(".vercel.app")) {
+//       console.log("✅ Дозволено preview Vercel:", cleanOrigin);
+//       return cleanOrigin;
+//     }
+//   } catch (e) {
+//     console.warn("❌ Невірний origin:", cleanOrigin);
+//     return null;
+//   }
+
+//   // Дозволені домени з .env
+//   if (allowedOrigins.some((o) => cleanOrigin.startsWith(o.toLowerCase()))) {
+//     console.log("✅ Дозволено з .env:", cleanOrigin);
+//     return cleanOrigin;
+//   }
+
+//   console.warn("❌ Заблокований origin:", cleanOrigin);
+//   return null;
+// }
+
+// Формування заголовків CORS
+
 function getCorsOrigin(origin: string | null): string | null {
   if (!origin) return null;
 
-  // Обрізаємо пробіли і приводимо до lowercase
   const cleanOrigin = origin.trim().toLowerCase();
 
-  // Дозволяємо всі preview-деплоя Vercel
-  // Беремо тільки протокол + домен (не path)
   try {
     const url = new URL(cleanOrigin);
-    const hostname = url.hostname; // full-stack-app-from-lunar-tech-gldkml5wa.vercel.app
+    const hostname = url.hostname;
 
+    // Дозволяємо всі preview-деплоя Vercel
     if (hostname.endsWith(".vercel.app")) {
       console.log("✅ Дозволено preview Vercel:", cleanOrigin);
-      return cleanOrigin;
+      // повертаємо повний origin з протоколом
+      return url.origin;
     }
   } catch (e) {
     console.warn("❌ Невірний origin:", cleanOrigin);
     return null;
   }
 
-  // Дозволені домени з .env
   if (allowedOrigins.some((o) => cleanOrigin.startsWith(o.toLowerCase()))) {
-    console.log("✅ Дозволено з .env:", cleanOrigin);
     return cleanOrigin;
   }
 
@@ -69,7 +99,6 @@ function getCorsOrigin(origin: string | null): string | null {
   return null;
 }
 
-// Формування заголовків CORS
 function createCorsHeaders(origin: string | null): Headers {
   const headers = new Headers({
     "Access-Control-Allow-Methods": "GET, OPTIONS",
