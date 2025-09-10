@@ -181,6 +181,7 @@ function createCorsHeaders(origin: string | null): Headers {
   return headers;
 }
 
+// ------------------------------------------------------------------------------- GET 1
 // export async function GET(request: Request) {
 
 //   const origin = request.headers.get("origin");
@@ -201,26 +202,54 @@ function createCorsHeaders(origin: string | null): Headers {
 //   });
 // }
 
+// --------------------------------------------------------------------------------- GET 2
+// export async function GET(request: Request) {
+//   const origin = request.headers.get("origin");
+//   console.log(" GET --------------------------------------------- origin", origin);
+//   const allowedOrigin = getCorsOrigin(origin);
+
+//   console.log(" GET --------------------------------------------- allowedOrigin", allowedOrigin);
+
+//   const authParams = imagekit.getAuthenticationParameters();
+
+//   return new NextResponse(JSON.stringify(authParams), {
+//     status: 200,
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Access-Control-Allow-Credentials": "true",
+//       "Access-Control-Allow-Methods": "GET, OPTIONS",
+//       "Access-Control-Allow-Headers": "Content-Type",
+//       "Access-Control-Allow-Origin": allowedOrigin || "",
+//       "Vary": "Origin",
+//       "X-Debug-Origin": origin || "no-origin",
+//     },
+//   });
+// }
+
+// --------------------------------------------------------------------------------- GET 3
+
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
-  console.log(" GET --------------------------------------------- origin", origin);
-  const allowedOrigin = getCorsOrigin(origin);
+  console.log("GET origin:", origin);
 
-  console.log(" GET --------------------------------------------- allowedOrigin", allowedOrigin);
+  const allowedOrigin = getCorsOrigin(origin);
+  console.log("GET allowedOrigin:", allowedOrigin);
 
   const authParams = imagekit.getAuthenticationParameters();
 
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Vary": "Origin",
+    "X-Debug-Origin": origin || "no-origin",
+    ...(allowedOrigin ? { "Access-Control-Allow-Origin": allowedOrigin } : {}),
+  };
+
   return new NextResponse(JSON.stringify(authParams), {
     status: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Methods": "GET, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Origin": allowedOrigin || "",
-      "Vary": "Origin",
-      "X-Debug-Origin": origin || "no-origin",
-    },
+    headers,
   });
 }
 
