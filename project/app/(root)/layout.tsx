@@ -58,22 +58,46 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   //     .where(eq(users.id, session.user.id));
   // }
 
+  // if (session?.user.id) {
+  //   const today = new Date().toISOString().slice(0, 10);
+
+  //   const [user] = await db
+  //     .select({ lastActivityDate: users.lastActivityDate })
+  //     .from(users)
+  //     .where(eq(users.id, session.user.id))
+  //     .limit(1);
+
+  //   if (user && user.lastActivityDate !== today) {
+  //     await db
+  //       .update(users)
+  //       .set({ lastActivityDate: today })
+  //       .where(eq(users.id, session.user.id));
+  //   }
+  // }
+
   if (session?.user.id) {
-    const today = new Date().toISOString().slice(0, 10);
+  const today = new Date().toISOString().slice(0, 10);
 
-    const [user] = await db
-      .select({ lastActivityDate: users.lastActivityDate })
-      .from(users)
-      .where(eq(users.id, session.user.id))
-      .limit(1);
+  const [user] = await db
+    .select({ lastActivityDate: users.lastActivityDate })
+    .from(users)
+    .where(eq(users.id, session.user.id))
+    .limit(1);
 
-    if (user && user.lastActivityDate !== today) {
+  if (user) {
+    const lastActivity =
+      user.lastActivityDate instanceof Date
+        ? user.lastActivityDate.toISOString().slice(0, 10)
+        : null;
+
+    if (lastActivity !== today) {
       await db
         .update(users)
-        .set({ lastActivityDate: today })
+        .set({ lastActivityDate: new Date() }) // <-- тепер зберігаємо Date
         .where(eq(users.id, session.user.id));
     }
   }
+}
 
   return (
     <main

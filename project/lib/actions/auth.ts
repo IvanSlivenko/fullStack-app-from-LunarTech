@@ -70,12 +70,22 @@ export const singUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
+    // await workflowclient.trigger({
+    //   url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
+    //   body: {
+    //     email,
+    //     fullName,
+    //   },
+    // });
+
+    const baseUrl =
+    process.env.NODE_ENV === "production"
+    ? config.env.prodApiEndpoint
+    : config.env.apiEndpoint_2; // localhost або інший dev URL
+
     await workflowclient.trigger({
-      url: `${config.env.prodApiEndpoint}/api/workflows/onboarding`,
-      body: {
-        email,
-        fullName,
-      },
+      url: `${baseUrl}/api/workflows/onboarding`,
+      body: { email, fullName },
     });
 
     await singInWitchCredentials({ email, password });

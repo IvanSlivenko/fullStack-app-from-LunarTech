@@ -30,8 +30,10 @@ export const users = pgTable("users", {
   role: ROLE_ENUM("role").default("USER"),
   lastActivityDate: timestamp("last_activity_date", {
     withTimezone: true,
+    mode: "date",
   }).defaultNow(),
   createdAt: timestamp("created_at", {
     withTimezone: true,
+    mode: "date",
   }).defaultNow(),
 });
