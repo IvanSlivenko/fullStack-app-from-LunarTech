@@ -128,15 +128,35 @@ export const singUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    const baseUrl =
-      process.env.NODE_ENV === "production"
-        ? config.env.prodApiEndpoint
-        : config.env.apiEndpoint_2;
+    // ------------------------------------------------------------- var 1
+    // const baseUrl =
+    //   process.env.NODE_ENV === "production"
+    //     ? config.env.prodApiEndpoint
+    //     : config.env.apiEndpoint_2;
+
+    // await workflowclient.trigger({
+    //   url: `${baseUrl}/api/workflows/onboarding`,
+    //   body: { email, fullName },
+    // });
+    
+    // ---------------------------------------------------------- var 2
+    // const baseUrl =
+    // process.env.NODE_ENV === "production"
+    // ? config.env.prodApiEndpoint
+    // : config.env.apiEndpoint;
+
+    // await workflowclient.trigger({
+    //   url: `${baseUrl}/api/workflows/onboarding`,
+    //   body: { email, fullName },
+    // });
+
+    // ----------------------------------------------------------- var 3
+    const baseUrl = config.env.prodApiEndpoint;
 
     await workflowclient.trigger({
       url: `${baseUrl}/api/workflows/onboarding`,
       body: { email, fullName },
-    });
+    })
 
     await singInWitchCredentials({ email, password });
 
